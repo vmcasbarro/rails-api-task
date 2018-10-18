@@ -1,4 +1,4 @@
-class ListsController < ApplicationController
+class ListsController < ProtectedController
   before_action :set_list, only: [:show, :update, :destroy]
 
   # GET /lists
@@ -18,7 +18,7 @@ class ListsController < ApplicationController
     @list = List.new(list_params)
 
     if @list.save
-      render json: @list, status: :created, location: @list
+      render json: @list, status: :created
     else
       render json: @list.errors, status: :unprocessable_entity
     end
@@ -46,6 +46,6 @@ class ListsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def list_params
-      params.require(:list).permit(:list_name)
+      params.require(:list).permit(:list_name, :user_id)
     end
 end

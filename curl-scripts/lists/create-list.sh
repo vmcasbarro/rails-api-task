@@ -7,7 +7,8 @@ curl "http://localhost:4741/lists" \
   --header "Authorization: Token token=${TOKEN}" \
   --data '{
     "list": {
-      "list_name": "'"${NAME}"'"
+      "list_name": "'"${NAME}"'",
+      "user_id": 2
     }
   }'
 
