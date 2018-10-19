@@ -1,21 +1,26 @@
-class TasksController < OpenReadController
-  before_action :set_task, only: [:show, :update, :destroy]
+class TasksController < ProtectedController
+  before_action :set_task, only: [:update, :destroy]
 
   # GET /tasks
   def index
-    @tasks = Task.all
+    @list = current_user.lists.find(params[:list_id])
+    @tasks = @list.tasks.all
 
     render json: @tasks
   end
 
   # GET /tasks/1
   def show
+    @list = current_user.lists.find(params[:list_id])
+    @task = @list.tasks.find(params[:id])
     render json: @task
   end
 
   # POST /tasks
   def create
-    @task = Task.new(task_params)
+    @list = current_user.lists.find(params[:list_id])
+
+    @task = @list.tasks.build(task_params)
 
     if @task.save
       render json: @task, status: :created
@@ -26,6 +31,9 @@ class TasksController < OpenReadController
 
   # PATCH/PUT /tasks/1
   def update
+    @list = current_user.lists.find(params[:list_id])
+    @task = @list.tasks.find(params[:id])
+
     if @task.update(task_params)
       render json: @task
     else
@@ -35,6 +43,8 @@ class TasksController < OpenReadController
 
   # DELETE /tasks/1
   def destroy
+    @list = current_user.lists.find(params[:list_id])
+    @task = @list.tasks.find(params[:id])
     @task.destroy
   end
 

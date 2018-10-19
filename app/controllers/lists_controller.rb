@@ -4,6 +4,7 @@ class ListsController < ProtectedController
   # GET /lists
   def index
     @lists = current_user.lists.all
+    # @lists = List.all
 
     render json: @lists
   end

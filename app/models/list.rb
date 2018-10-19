@@ -2,5 +2,5 @@
 
 class List < ApplicationRecord
   belongs_to :user
-  has_many :lists
+  has_many :tasks
 end
