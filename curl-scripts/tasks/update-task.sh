@@ -5,6 +5,7 @@ curl --include --request PATCH "http://localhost:4741/lists/${LID}/tasks/${ID}" 
   --header "Content-Type: application/json" \
   --data '{
     "task": {
-      "task_name": "'"${NAME}"'"
+      "task_name": "'"${NAME}"'",
+      "completed": "'"${COMP}"'"
     }
   }'
