@@ -4,7 +4,7 @@ class TasksController < ProtectedController
   # GET /tasks
   def index
     @list = current_user.lists.find(params[:list_id])
-    @tasks = @list.tasks.all
+    @tasks = @list.tasks.all(:created_at)
 
     render json: @tasks
   end
